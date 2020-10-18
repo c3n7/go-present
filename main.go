@@ -153,6 +153,10 @@ func main() {
   quitter := func(k *terminalapi.Keyboard) {
     if k.Key == 'q' || k.Key == 'Q' {
       cancel()
+    } else if k.Key == 'g' || k.Key == 'G' {
+      if err := kiswahili.Write("Unaonaje.", text.WriteReplace()); err != nil {
+        panic(err)
+      }
     }
   }
 
