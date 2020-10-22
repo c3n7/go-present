@@ -2,6 +2,9 @@ package main
 
 import (
   "context"
+  "fmt"
+  "os"
+  "bufio"
 
   "github.com/mum4k/termdash"
   "github.com/mum4k/termdash/container"
@@ -13,6 +16,24 @@ import (
 
 
 func main() {
+  // Read from file
+  file, err := os.Open("test1.md")
+  if err != nil {
+      fmt.Println(err)
+  }
+  defer file.Close()
+
+  var lines []string
+  scanner := bufio.NewScanner(file)
+  for scanner.Scan() {
+      lines = append(lines, scanner.Text())
+  }
+
+
+  if err := scanner.Err(); err != nil {
+      fmt.Println(err)
+  }
+
   t, err := termbox.New()
   if err != nil {
     panic(err)
@@ -33,9 +54,12 @@ func main() {
   if err != nil {
     panic(err)
   }
-	if err := content.Write("Mark me, the end is nigh, the rider on a pale white horse is coming, and his judgement is death. God save the republic, God help the helpless, God damn the lawless."); err != nil {
-		panic(err)
-	}
+  // Write the read content
+  for _, l := range lines {
+    if err := content.Write(fmt.Sprintln(l)); err != nil {
+      panic(err)
+    }
+  }
 
   slide, err := container.New(
     t,
