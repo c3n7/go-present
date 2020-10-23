@@ -70,12 +70,14 @@ func main() {
         container.Border(linestyle.Light),
         container.BorderTitle("Title"),
         container.PlaceWidget(title),
+        container.BorderTitleAlignCenter(),
       ),
       container.Bottom(
         container.Border(linestyle.Light),
         container.BorderTitle("Content"),
         container.PlaceWidget(content),
       ),
+			container.SplitPercent(20),
     ),
   )
 	if err != nil {
