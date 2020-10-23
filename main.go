@@ -7,6 +7,7 @@ import (
   "bufio"
 
   "github.com/mum4k/termdash"
+	"github.com/mum4k/termdash/cell"
   "github.com/mum4k/termdash/container"
   "github.com/mum4k/termdash/linestyle"
   "github.com/mum4k/termdash/terminal/termbox"
@@ -46,7 +47,7 @@ func main() {
   if err != nil {
     panic(err)
   }
-  if err := title.Write("The Horseman."); err != nil {
+  if err := title.Write("The Horseman.", text.WriteCellOpts(cell.FgColor(cell.ColorYellow))); err != nil {
     panic(err)
   }
 
@@ -68,13 +69,13 @@ func main() {
     container.SplitHorizontal(
       container.Top(
         container.Border(linestyle.Light),
-        container.BorderTitle("Title"),
+        // container.BorderTitle("Title"),
         container.PlaceWidget(title),
         container.BorderTitleAlignCenter(),
       ),
       container.Bottom(
         container.Border(linestyle.Light),
-        container.BorderTitle("Content"),
+        // container.BorderTitle("Content"),
         container.PlaceWidget(content),
       ),
 			container.SplitPercent(20),
